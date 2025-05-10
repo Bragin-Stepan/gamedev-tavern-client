@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "./color.css";
+
+@custom-variant dark (&:is(.dark *));
+
+* {
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1 {
+  font-family: var(--font-inter), sans-serif;
+}

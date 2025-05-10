@@ -1,0 +1,48 @@
+// badge.tsx
+import { Slot } from '@radix-ui/react-slot'
+import { type VariantProps, cva } from 'class-variance-authority'
+import * as React from 'react'
+
+import { cn } from '@/utils/tailwind-merge'
+
+const badgeVariants = cva(
+	'inline-flex items-center h-5 lg:h-6 justify-center rounded-md px-1 lg:px-2 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
+	{
+		variants: {
+			variant: {
+				filled:
+					'border-transparent bg-current text-current [a&]:hover:opacity-80',
+				ghost:
+					'border-current text-current [a&]:hover:bg-custom-brand [a&]:hover:text-custom-brand'
+			}
+		},
+		defaultVariants: {
+			variant: 'ghost'
+		}
+	}
+)
+
+type BadgeProps = React.ComponentProps<'span'> &
+	VariantProps<typeof badgeVariants> & {
+		asChild?: boolean
+	}
+
+function Badge({ className, variant, asChild = false, ...props }: BadgeProps) {
+	const Comp = asChild ? Slot : 'span'
+
+	return (
+		<Comp
+			data-slot='badge'
+			className={cn(
+				badgeVariants({ variant }),
+				{
+					'bg-opacity-30 bg-current': variant === 'ghost'
+				},
+				className
+			)}
+			{...props}
+		/>
+	)
+}
+
+export { Badge, badgeVariants }
