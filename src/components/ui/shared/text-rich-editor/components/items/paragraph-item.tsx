@@ -9,7 +9,7 @@ import { useControl } from '../../hooks/use-control'
 import { useKeys } from '../../hooks/use-keys'
 import { useEditorStore } from '../../store'
 
-import { IPostParagraphItem } from '@/types/post-item-types'
+import { IPostParagraphItem } from '@/types/post-item.type'
 
 export const ParagraphItem = React.memo(
 	({

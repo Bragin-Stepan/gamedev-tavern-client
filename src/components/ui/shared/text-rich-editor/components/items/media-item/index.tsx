@@ -9,7 +9,7 @@ import { placeholderStyle } from '../../../config/styles'
 import { useEditorStore } from '../../../store'
 
 import { useHandle } from './hooks/use-handle'
-import { IPostMediaItem } from '@/types/post-item-types'
+import { IPostMediaItem } from '@/types/post-item.type'
 
 export const MediaItem = React.memo(
 	({ item, index }: { item: IPostMediaItem; index: number }) => {

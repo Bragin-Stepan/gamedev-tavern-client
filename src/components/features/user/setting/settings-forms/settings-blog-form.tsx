@@ -19,6 +19,8 @@ import { Typography } from '@/components/ui/common/typography'
 import { InputForm } from '@/components/ui/shared/input-form'
 import { WBlock } from '@/components/ui/shared/w-block'
 
+import { useFindAllSpecializationsQuery } from '@/graphql/generated/output'
+
 import { useCurrent } from '@/hooks/use-current'
 
 import { BlockTitle } from '../../../../ui/shared/block-title'
@@ -69,56 +71,7 @@ export const SettingsBlogForm = () => {
 		form.setValue('links', newLinks)
 	}
 
-	const direction = [
-		{
-			id: '1',
-			name: '2D Художник'
-		},
-		{
-			id: '2',
-			name: '3D Художник'
-		},
-		{
-			id: '3',
-			name: '2D Аниматор'
-		},
-		{
-			id: '4',
-			name: '3D Аниматор'
-		},
-		{
-			id: '5',
-			name: 'UI/UX Дизайнер'
-		},
-		{
-			id: '6',
-			name: 'Программист'
-		},
-		{
-			id: '7',
-			name: 'Геймдизайнер'
-		},
-		{
-			id: '8',
-			name: 'Нерративный дизайнер'
-		},
-		{
-			id: '9',
-			name: 'Менеджер'
-		},
-		{
-			id: '10',
-			name: 'Саунд-дизайнер'
-		},
-		{
-			id: '11',
-			name: 'Сценарист'
-		},
-		{
-			id: '12',
-			name: 'Тестировщик'
-		}
-	]
+	const { data: specializations } = useFindAllSpecializationsQuery()
 
 	return (
 		<Form {...form}>
@@ -130,7 +83,7 @@ export const SettingsBlogForm = () => {
 
 					<WBlock title='О себе'>
 						<InputForm
-							label='Имя'
+							label='Ник'
 							name='username'
 							maxLength={24}
 							placeholder='Свиборг'
@@ -178,9 +131,9 @@ export const SettingsBlogForm = () => {
 										</SelectTrigger>
 										<SelectContent>
 											<SelectGroup>
-												{direction.map(item => (
+												{specializations?.findAllSpecializations.map(item => (
 													<SelectItem key={item.id} value={item.id}>
-														{item.name}
+														{item.title}
 													</SelectItem>
 												))}
 											</SelectGroup>

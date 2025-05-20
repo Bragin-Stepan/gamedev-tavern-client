@@ -1,0 +1,47 @@
+query FindSubcategoriesByCategory($slug: String!) {
+	findSubcategoriesByCategory(slug: $slug) {
+		id
+		title
+		slug
+    # category {
+    #   slug
+    #   subcategories {
+    #     id
+    #     title
+    #     slug
+    #   }
+    # }
+		topics {
+			id
+			title
+			viewCount
+			createdAt
+			isBookmarked
+			author {
+				id
+				uid
+				avatar
+				username
+				status
+				isLookingTeam
+				isGatheringTeam
+				iconSpecialization
+				specialization {
+					title
+				}
+				socialLinks {
+					title
+					url
+				}
+				candidateCard {
+					direction
+				}
+			}
+			# contentBlocks
+			# bookmarks {
+			# }
+			# comments {
+			# }
+		}
+	}
+}

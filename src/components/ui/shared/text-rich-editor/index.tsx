@@ -16,7 +16,7 @@ import {
 	TPostContent,
 	TPostContentItem,
 	TPostItemType
-} from '@/types/post-item-types'
+} from '@/types/post-item.type'
 
 interface BaseProps {
 	excludeTypes?: TPostItemType[]

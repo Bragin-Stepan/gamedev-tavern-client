@@ -9,7 +9,7 @@ import { placeholderStyle } from '../../config/styles'
 import { useControl } from '../../hooks/use-control'
 import { useEditorStore } from '../../store'
 
-import { IPostQuoteItem } from '@/types/post-item-types'
+import { IPostQuoteItem } from '@/types/post-item.type'
 
 export const QuoteItem = React.memo(({ item }: { item: IPostQuoteItem }) => {
 	const updateItem = useEditorStore(state => state.updateItem)

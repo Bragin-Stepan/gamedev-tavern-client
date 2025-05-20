@@ -7,7 +7,7 @@ import { cn } from '@/utils/tailwind-merge'
 import { placeholderStyle } from '../../config/styles'
 import { useEditorStore } from '../../store'
 
-import { IPostListItem } from '@/types/post-item-types'
+import { IPostListItem } from '@/types/post-item.type'
 
 export const ListItem = React.memo(
 	({ item, index, id }: { item: IPostListItem; index: number; id: string }) => {

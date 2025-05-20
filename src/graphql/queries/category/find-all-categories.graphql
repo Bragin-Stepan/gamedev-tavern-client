@@ -1,0 +1,13 @@
+query FindAllCategories {
+	findAllCategories {
+		id
+		updatedAt
+		title
+		slug
+		subcategories {
+			id
+			title
+			slug
+		}
+	}
+}

@@ -8,7 +8,7 @@ import { placeholderStyle } from '../../config/styles'
 import { useKeys } from '../../hooks/use-keys'
 import { useEditorStore } from '../../store'
 
-import { IPostHeadingTwoItem } from '@/types/post-item-types'
+import { IPostHeadingTwoItem } from '@/types/post-item.type'
 
 export const HeadingTwoItem = React.memo(
 	({

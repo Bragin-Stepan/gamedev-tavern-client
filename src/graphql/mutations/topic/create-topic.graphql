@@ -1,0 +1,3 @@
+mutation CreateTopic($data: CreateTopicInput!) {
+	createTopic(data: $data)
+}

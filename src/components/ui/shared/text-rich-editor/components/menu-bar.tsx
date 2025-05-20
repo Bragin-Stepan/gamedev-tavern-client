@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/common/button'
 
 import { useEditorStore } from '../store'
 
-import { TPostItemType } from '@/types/post-item-types'
+import { TPostItemType } from '@/types/post-item.type'
 
 type Props = {
 	excludeTypes?: TPostItemType[]

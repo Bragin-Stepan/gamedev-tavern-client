@@ -58,7 +58,7 @@ export const Typography = ({
 		body2:
 			'text-[13px] lg:text-sm text-custom-gray leading-normal tracking-normal font-normal',
 		caption:
-			'text-[10px] lg:text-xs text-custom-gray-dark leading-tight tracking-tight italic',
+			'text-[10px] lg:text-xs text-custom-gray-dark leading-tight tracking-tight',
 		subtitle1:
 			'text-md lg:text-lg font-medium text-custom-black leading-normal tracking-normal',
 		subtitle2:

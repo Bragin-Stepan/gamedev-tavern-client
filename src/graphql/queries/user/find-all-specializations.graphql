@@ -1,0 +1,9 @@
+query FindAllSpecializations {
+  findAllSpecializations {
+    id
+    title
+    careerPath
+    createdAt
+    updatedAt
+  }
+}

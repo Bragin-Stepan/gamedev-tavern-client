@@ -1,0 +1,29 @@
+query FindProfileByUid($uid: Float!) {
+  findProfileByUid(uid: $uid) {
+    id
+    uid
+    username
+    avatar
+    status
+    iconSpecialization
+    isLookingTeam
+    isGatheringTeam
+    candidateCard {
+      id
+      direction
+      description
+    }
+    specialization {
+      id
+      title      
+      careerPath
+    }
+    socialLinks {
+      id
+      title
+      url
+    }
+    createdAt
+    updatedAt
+  }
+}

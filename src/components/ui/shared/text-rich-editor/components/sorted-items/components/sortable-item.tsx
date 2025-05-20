@@ -6,7 +6,7 @@ import { cn } from '@/utils/tailwind-merge'
 
 import { useEditorStore } from '../../../store'
 
-import { TPostContentItem } from '@/types/post-item-types'
+import { TPostContentItem } from '@/types/post-item.type'
 
 export const SortableItem = ({
 	id,

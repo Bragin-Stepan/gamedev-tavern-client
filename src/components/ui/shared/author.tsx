@@ -1,8 +1,16 @@
+'use client'
+
 import Link from 'next/link'
 import React from 'react'
 
+import {
+	FindAllTopicsQuery,
+	FindProfileByUidQuery
+} from '@/graphql/generated/output'
+
+import { useCurrent } from '@/hooks/use-current'
+
 import { Avatar } from './../common/avatar'
-import { Badge } from './../common/badge'
 import { Button } from './../common/button'
 import {
 	HoverCard,
@@ -10,9 +18,21 @@ import {
 	HoverCardTrigger
 } from './../common/hover-card'
 import { Typography } from './../common/typography'
+import { GatheringTeamBadge } from './badges/gathering-team-badge'
+import { LookingTeamBadge } from './badges/looking-team-badge'
+import { SpecializationBadge } from './badges/specialization-badge'
 import { DecorativeIconSpecialization } from './decorative-icon-specializations'
+import { IconName } from './decorative-icon-specializations/icon.type'
 
-export const Author = () => {
+interface AuthorProps {
+	// author?: FindAllTopicsQuery['findAllTopics'][0]['author']
+	author?: FindProfileByUidQuery['findProfileByUid']
+}
+
+export const Author = ({ author }: AuthorProps) => {
+	if (!author) return null
+	const { user } = useCurrent()
+
 	return (
 		<HoverCard>
 			<HoverCardTrigger asChild>
@@ -23,21 +43,24 @@ export const Author = () => {
 					<Avatar className='h-13 w-13' />
 					<div className='flex flex-col gap-1'>
 						<Typography variant='body1' className='dark:opacity-100'>
-							EvilHomie
+							{author.username}
 						</Typography>
 						<div className='flex flex-row gap-2'>
-							<Badge className='bg-custom-brand/10 text-custom-brand'>
-								2D Художник
-							</Badge>
-							<Badge className='bg-custom-access/10 text-custom-access'>
-								ищу команду
-							</Badge>
+							<SpecializationBadge title={author.specialization?.title} />
+
+							{!author.isLookingTeam && author.isGatheringTeam && (
+								<GatheringTeamBadge />
+							)}
+
+							{!author.isGatheringTeam && author.isLookingTeam && (
+								<LookingTeamBadge />
+							)}
 						</div>
 					</div>
 				</Link>
 			</HoverCardTrigger>
 			<HoverCardContent
-				className='flex w-fit max-w-90 flex-col gap-1 lg:max-w-100 lg:gap-2'
+				className='flex w-fit max-w-90 flex-col gap-1 lg:max-w-100 lg:min-w-90 lg:gap-2'
 				align='start'
 				// side='right'
 				sideOffset={-16}
@@ -46,48 +69,57 @@ export const Author = () => {
 					className='flex w-fit items-center gap-2 lg:gap-3'
 					href='/profile/1'
 				>
-					<DecorativeIconSpecialization
-						value='diceFire'
-						className='text-custom-gray/10 dark:text-custom-gray/7 absolute top-2 right-3 h-14 w-14 -rotate-10 lg:h-16 lg:w-16'
-					/>
+					{author.specialization && (
+						<DecorativeIconSpecialization
+							value={author.specialization.title as IconName}
+							className='text-custom-gray/10 dark:text-custom-gray/7 absolute top-2 right-3 h-14 w-14 -rotate-10 lg:h-16 lg:w-16'
+						/>
+					)}
 					<Avatar className='h-13 w-13' />
 					<div className='flex flex-col gap-1'>
 						<div className='flex flex-row items-center gap-1'>
 							<Typography variant='body1' className='dark:opacity-100'>
-								EvilHomie
+								{author.username}
 							</Typography>
-							<Badge className='bg-custom-black text-custom-white'>
-								UID: 1
-							</Badge>
-							{/* <Typography variant='body2' className='text-custom-brand'>
-								UID: 1
-							</Typography> */}
+							{/* <Badge className='bg-custom-black text-custom-white'>
+								UID: {author.uid}
+							</Badge> */}
+							<Typography variant='body2' className='text-custom-brand pr-4'>
+								UID: {author.uid}
+							</Typography>
 						</div>
 
 						<div className='flex flex-row gap-2'>
-							<Badge className='bg-custom-brand/10 text-custom-brand'>
-								2D Художник
-							</Badge>
-							<Badge className='bg-custom-access/10 text-custom-access'>
-								ищу команду
-							</Badge>
+							<SpecializationBadge title={author.specialization?.title} />
+
+							{!author.isLookingTeam && author.isGatheringTeam && (
+								<GatheringTeamBadge />
+							)}
+
+							{!author.isGatheringTeam && author.isLookingTeam && (
+								<LookingTeamBadge />
+							)}
 						</div>
 					</div>
 				</Link>
-				<Typography variant='body1'>Концепт художник / Иллюстратор</Typography>
+				{author.candidateCard && (
+					<Typography variant='body1'>
+						{author.candidateCard.direction}
+					</Typography>
+				)}
 				<Typography variant='body2' className='-mt-1'>
-					Создаю игры и обучаю людей. В свободное время занимаюсь стримингом и
-					ведением канала на YouTube.
+					{author.status}
 				</Typography>
+
 				<div className='my-1 -mt-1 flex flex-row gap-2 lg:gap-3'>
-					<Button variant={'link'} size={'text'}>
-						Telegram
-					</Button>
-					<Button variant={'link'} size={'text'}>
-						VK
-					</Button>
+					{author.socialLinks?.length > 0 &&
+						author.socialLinks.map(link => (
+							<Button key={link.title} variant={'link'} size={'text'}>
+								{link.title}
+							</Button>
+						))}
 				</div>
-				<Button size={'sm'}>Подписаться</Button>
+				{user?.id !== author?.id && <Button size={'sm'}>Подписаться</Button>}
 			</HoverCardContent>
 		</HoverCard>
 	)

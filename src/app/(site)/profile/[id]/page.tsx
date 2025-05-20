@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import { ProjectCardList } from '@/components/features/project/project-card-list'
-import { SubcategoriesGroupItem } from '@/components/features/subcategories/subcategories-group-item'
+// import { SubcategoriesGroupItem } from '@/components/features/subcategories/subcategories-group-item'
 import { UserCardFull } from '@/components/features/user/user-card/user-card-full'
 import { UserProfileHeader } from '@/components/features/user/user-profile-header'
 import { Button } from '@/components/ui/common/button'
@@ -31,7 +31,7 @@ export default function ProfilePage() {
 
 			{activeTab === 'card' && <UserCardFull />}
 			{activeTab === 'projects' && <ProjectCardList />}
-			{activeTab === 'topics' && <SubcategoriesGroupItem />}
+			{/* {activeTab === 'topics' && <SubcategoriesGroupItem />} */}
 		</WBlock>
 	)
 }

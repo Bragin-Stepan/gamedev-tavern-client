@@ -1,82 +1,53 @@
-'use client'
+import { notFound } from 'next/navigation'
 
-import { useState } from 'react'
-
-import { SubcategoriesGroupItem } from '@/components/features/subcategories/subcategories-group-item'
-import { TopicPreview } from '@/components/features/topic/topic-preview'
-import { Button } from '@/components/ui/common/button'
-import { Divider } from '@/components/ui/common/divider'
-import { Typography } from '@/components/ui/common/typography'
-import { BlockTitle } from '@/components/ui/shared/block-title'
+import { CategoryOverview } from '@/components/features/categories/category-overview'
 import { WBlock } from '@/components/ui/shared/w-block'
 
-import { cn } from '@/utils/tailwind-merge'
+import {
+	FindOneCategoryDocument,
+	type FindOneCategoryQuery
+} from '@/graphql/generated/output'
 
-export default function CategoryPage() {
-	const [activeTab, setActiveTab] = useState(1)
+import { SERVER_URL } from '@/libs/constants/url.constants'
 
-	const subcategories = [
-		{
-			id: 1,
-			name: 'Общее'
-		},
-		{
-			id: 2,
-			name: 'C++'
-		},
-		{
-			id: 3,
-			name: 'Blueprints'
-		},
-		{
-			id: 4,
-			name: 'Анимация'
-		},
-		{
-			id: 5,
-			name: 'Туториалы'
+async function findOneCategory(params: { category: string }) {
+	try {
+		const query = FindOneCategoryDocument.loc?.source.body
+		const variables = { slug: params.category }
+
+		const response = await fetch(SERVER_URL, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ query, variables }),
+			next: {
+				revalidate: 30
+			}
+		})
+
+		const data = await response.json()
+
+		return {
+			category: data.data
+				.findOneCategory as FindOneCategoryQuery['findOneCategory']
 		}
-	]
+	} catch (error) {
+		console.log(error)
+		return notFound()
+	}
+}
+
+export default async function CategoryPage(props: {
+	params: Promise<{ category: string }>
+}) {
+	const params = await props.params
+
+	const { category } = await findOneCategory(params)
 
 	return (
 		<WBlock isBackground={false}>
-			{/* <Typography variant='h1' className='w-fit py-2'>
-				Unreal Engine
-			</Typography> */}
-			<WBlock>
-				<BlockTitle title={'Unreal Engine'} />
-				<Divider />
-				<div className='flex flex-row gap-6'>
-					{subcategories.map(subcategory => (
-						<Button
-							key={subcategory.id}
-							size={'text'}
-							variant={'link'}
-							className={cn(
-								activeTab === subcategory.id && 'text-custom-brand'
-							)}
-							onClick={() => setActiveTab(subcategory.id)}
-						>
-							{subcategory.name}
-						</Button>
-					))}
-				</div>
-			</WBlock>
-			<WBlock>
-				<TopicPreview />
-			</WBlock>
-			<WBlock>
-				<TopicPreview />
-			</WBlock>
-			<WBlock>
-				<TopicPreview />
-			</WBlock>
-			<WBlock>
-				<TopicPreview />
-			</WBlock>
-			<WBlock>
-				<TopicPreview />
-			</WBlock>
+			<CategoryOverview category={category} />
 		</WBlock>
 	)
 }

@@ -1,55 +1,70 @@
-import { IPostMediaItem } from "@/types/post-item-types";
-import { useCallback } from "react";
-import { useEditorStore } from "../../../../store";
+import { useCallback } from 'react'
 
-export const useHandle = (setIsDragging: (state: boolean) => void, index: number, item: IPostMediaItem) => {
-    const updateItem = useEditorStore(state => state.updateItem);
+import { useEditorStore } from '../../../../store'
 
-    /** Обработчик загрузки файла */
-    const handleFileUpload = useCallback((file: File) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        updateItem({ ...item, url: reader.result as string });
-        setIsDragging(false);
-      };
-      reader.onerror = () => {
-        console.error('Ошибка при чтении файла');
-        updateItem({ ...item, url: null });
-        setIsDragging(false);
-      };
-      reader.readAsDataURL(file);
-    },[]);
+import { IPostMediaItem } from '@/types/post-item.type'
 
-    /** Обработчик загрузки файла */
-    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (file) {
-        handleFileUpload(file);
-      }
-    },[]);
+export const useHandle = (
+	setIsDragging: (state: boolean) => void,
+	index: number,
+	item: IPostMediaItem
+) => {
+	const updateItem = useEditorStore(state => state.updateItem)
 
-    /** Обработчик перетаскивания файла */
-    const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      setIsDragging(false);
-      const file = e.dataTransfer.files?.[0];
-      if (file) {
-        handleFileUpload(file);
-      }
-    },[]);
+	/** Обработчик загрузки файла */
+	const handleFileUpload = useCallback((file: File) => {
+		const reader = new FileReader()
+		reader.onload = () => {
+			updateItem({ ...item, url: reader.result as string })
+			setIsDragging(false)
+		}
+		reader.onerror = () => {
+			console.error('Ошибка при чтении файла')
+			updateItem({ ...item, url: null })
+			setIsDragging(false)
+		}
+		reader.readAsDataURL(file)
+	}, [])
 
-    /** Обработчик перетаскивания на самой странице */
-    const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-    },[]);
+	/** Обработчик загрузки файла */
+	const handleInputChange = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const file = e.target.files?.[0]
+			if (file) {
+				handleFileUpload(file)
+			}
+		},
+		[]
+	)
 
-    const handleDragEnter = useCallback(() => {
-      setIsDragging(true);
-    },[]);
+	/** Обработчик перетаскивания файла */
+	const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault()
+		setIsDragging(false)
+		const file = e.dataTransfer.files?.[0]
+		if (file) {
+			handleFileUpload(file)
+		}
+	}, [])
 
-    const handleDragLeave = useCallback(() => {
-      setIsDragging(false);
-    },[]);
+	/** Обработчик перетаскивания на самой странице */
+	const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault()
+	}, [])
 
-  return {handleInputChange, handleDrop, handleDragOver, handleDragEnter, handleDragLeave}
+	const handleDragEnter = useCallback(() => {
+		setIsDragging(true)
+	}, [])
+
+	const handleDragLeave = useCallback(() => {
+		setIsDragging(false)
+	}, [])
+
+	return {
+		handleInputChange,
+		handleDrop,
+		handleDragOver,
+		handleDragEnter,
+		handleDragLeave
+	}
 }

@@ -16,7 +16,7 @@ import { WBlock } from '@/components/ui/shared/w-block'
 
 import { BlockTitle } from '../../../../ui/shared/block-title'
 
-import { TPostContentItem } from '@/types/post-item-types'
+import { TPostContentItem } from '@/types/post-item.type'
 
 type Link = {
 	name: string

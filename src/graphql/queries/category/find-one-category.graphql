@@ -1,0 +1,12 @@
+query FindOneCategory($slug: String!) {
+	findOneCategory(slug: $slug) {
+		id
+		title
+		slug
+		subcategories {
+			id
+			title
+			slug			
+		}
+	}
+}

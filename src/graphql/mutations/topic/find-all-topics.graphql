@@ -1,0 +1,43 @@
+query FindAllTopics($categoryId: String,$subcategoryId: String, $pagination: PaginationInput!) {
+	findAllTopics(
+		categoryId: $categoryId,
+		subcategoryId: $subcategoryId,
+		pagination: $pagination
+	) {
+    id
+		title
+		slug
+    contentBlocks
+		viewCount
+		createdAt
+		subcategory {
+			title
+			slug
+			category {
+				title
+				slug
+			}
+		}
+		isBookmarked
+		author {
+			id
+			uid
+			avatar
+			username
+			status
+			isLookingTeam
+			isGatheringTeam
+			iconSpecialization
+			specialization {
+				title
+			}
+			socialLinks {
+				title
+				url
+			}
+			candidateCard {
+				direction
+			}
+		}
+	}
+}

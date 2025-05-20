@@ -9,7 +9,7 @@ import { QuoteItem } from '../items/quote-item'
 import { SeparatorItem } from '../items/separator-item'
 
 import { SortableItem } from './components/sortable-item'
-import { TPostContentItem, TPostItemType } from '@/types/post-item-types'
+import { TPostContentItem, TPostItemType } from '@/types/post-item.type'
 
 type Props = {
 	excludeTypes?: TPostItemType[]

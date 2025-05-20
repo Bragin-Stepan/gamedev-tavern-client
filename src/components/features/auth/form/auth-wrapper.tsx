@@ -17,7 +17,6 @@ export const AuthFormWrapper = ({ title, children }: AuthFormWrapperProps) => {
 	const router = useRouter()
 
 	const onClickBack = () => {
-		console.log(123123)
 		router.back()
 	}
 

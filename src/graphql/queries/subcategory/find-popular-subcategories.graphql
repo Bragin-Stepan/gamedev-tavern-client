@@ -1,0 +1,49 @@
+query FindPopularSubcategories($pagination: PaginationInput!) {
+	findPopularSubcategories(
+		pagination: $pagination
+	) {
+    id
+		title
+    slug
+    category {
+      slug
+    }
+    topics {
+      id
+			title
+			slug
+      contentBlocks
+		  viewCount
+		  createdAt
+		  subcategory {
+		  	title
+				slug
+		  	category {
+		  		title
+					slug
+		  	}
+		  }
+		  isBookmarked
+		  author {
+		  	id
+		  	uid
+		  	avatar
+		  	username
+		  	status
+		  	isLookingTeam
+		  	isGatheringTeam
+		  	iconSpecialization
+		  	specialization {
+		  		title
+		  	}
+		  	socialLinks {
+		  		title
+		  		url
+		  	}
+		  	candidateCard {
+		  		direction
+		  	}
+		  }
+    }
+	}
+}
