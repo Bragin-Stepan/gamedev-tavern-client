@@ -1,0 +1,38 @@
+query FindTopicBySlug($slug: String!) {
+  findTopicBySlug(slug: $slug) {
+    id
+    title
+    attachedProject {
+      id
+      title
+      images
+      description
+      genres      
+      isGathering
+    }
+    author {
+		  id
+		  uid
+		  avatar
+		  username
+		  status
+		  isLookingTeam
+		  isGatheringTeam
+		  iconSpecialization
+		  specialization {
+		  	title
+		  }
+		  socialLinks {
+		  	title
+		  	url
+		  }
+		  candidateCard {
+		  	direction
+		  }
+		}
+    contentBlocks
+    viewCount
+    createdAt
+    updatedAt
+  }
+}

@@ -11,11 +11,25 @@ import { CommentsCount } from '@/components/ui/shared/comments-count'
 import { ViewCount } from '@/components/ui/shared/view-count'
 import { WBlock } from '@/components/ui/shared/w-block'
 
+import { type FindTopicBySlugQuery } from '@/graphql/generated/output'
+
+import { formatDateTime } from '@/utils/date-format'
+
 import { ProjectCardPreview } from '../../project/project-card-preview'
 
 import { ThreeDotsButton } from './components/three-dots-button'
 
-export const TopicFull = () => {
+interface Props {
+	topic: FindTopicBySlugQuery['findTopicBySlug']
+}
+
+export const TopicFull = ({ topic }: Props) => {
+	if (!topic) {
+		return null
+	}
+
+	console.log(topic.contentBlocks)
+
 	return (
 		<WBlock>
 			<div className='flex flex-row items-center justify-between'>
@@ -23,9 +37,7 @@ export const TopicFull = () => {
 				<ThreeDotsButton />
 			</div>
 
-			<Typography variant='h2'>
-				Ищу разработчиков в команду, работаю над FPS шутером (UNREAL ENGINE)
-			</Typography>
+			<Typography variant='h2'>{topic.title}</Typography>
 			<Typography variant='body1'>
 				Если вы не являетесь фанатом хотя бы одной из них, то дальше можно не
 				читать.
@@ -58,13 +70,15 @@ export const TopicFull = () => {
 				дальше можно не читать.
 			</Typography>
 
-			<WBlock className='bg-custom-gray-light'>
-				<ProjectCardPreview isDetail={false} />
-			</WBlock>
+			{topic.attachedProject && (
+				<WBlock className='bg-custom-gray-light'>
+					<ProjectCardPreview isDetail={false} />
+				</WBlock>
+			)}
 
 			<div className='-mt-1 flex items-center justify-between'>
 				<Typography variant='body1' className='text-custom-gray'>
-					9 часов назад
+					{formatDateTime(topic.createdAt)}
 				</Typography>
 				<div className='flex items-center gap-4'>
 					<CommentsCount />

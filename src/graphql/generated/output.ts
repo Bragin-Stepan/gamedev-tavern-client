@@ -475,9 +475,9 @@ export type Query = {
   findProjectsByAuthor: PaginatedProjects;
   findSessionsByUser: Array<SessionModel>;
   findSubcategoriesByCategory: Array<SubcategoryModel>;
+  findTopicBySlug?: Maybe<TopicModel>;
   findTopicsByAuthor: Array<TopicModel>;
   generateTotpSecret: TotpModel;
-  topicById: TopicModel;
 };
 
 
@@ -542,14 +542,14 @@ export type QueryFindSubcategoriesByCategoryArgs = {
 };
 
 
-export type QueryFindTopicsByAuthorArgs = {
-  authorId: Scalars['String']['input'];
-  pagination: PaginationInput;
+export type QueryFindTopicBySlugArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
-export type QueryTopicByIdArgs = {
-  id: Scalars['String']['input'];
+export type QueryFindTopicsByAuthorArgs = {
+  authorId: Scalars['String']['input'];
+  pagination: PaginationInput;
 };
 
 export type ResetPasswordInput = {
@@ -838,6 +838,13 @@ export type FindSubcategoriesByCategoryQueryVariables = Exact<{
 
 
 export type FindSubcategoriesByCategoryQuery = { __typename?: 'Query', findSubcategoriesByCategory: Array<{ __typename?: 'SubcategoryModel', id: string, title: string, slug: string, topics: Array<{ __typename?: 'TopicModel', id: string, title: string, viewCount: number, createdAt: any, isBookmarked: boolean, author: { __typename?: 'UserModel', id: string, uid: number, avatar?: string | null, username?: string | null, status?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, iconSpecialization?: string | null, specialization?: { __typename?: 'SpecializationModel', title: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', title: string, url: string }>, candidateCard?: { __typename?: 'CandidateCardModel', direction: string } | null } } | null> }> };
+
+export type FindTopicBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type FindTopicBySlugQuery = { __typename?: 'Query', findTopicBySlug?: { __typename?: 'TopicModel', id: string, title: string, contentBlocks: any, viewCount: number, createdAt: any, updatedAt: any, attachedProject?: { __typename?: 'ProjectModel', id: string, title: string, images: Array<string>, description: string, genres: Array<string>, isGathering: boolean } | null, author: { __typename?: 'UserModel', id: string, uid: number, avatar?: string | null, username?: string | null, status?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, iconSpecialization?: string | null, specialization?: { __typename?: 'SpecializationModel', title: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', title: string, url: string }>, candidateCard?: { __typename?: 'CandidateCardModel', direction: string } | null } } | null };
 
 export type FindAllSpecializationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1638,6 +1645,79 @@ export type FindSubcategoriesByCategoryQueryHookResult = ReturnType<typeof useFi
 export type FindSubcategoriesByCategoryLazyQueryHookResult = ReturnType<typeof useFindSubcategoriesByCategoryLazyQuery>;
 export type FindSubcategoriesByCategorySuspenseQueryHookResult = ReturnType<typeof useFindSubcategoriesByCategorySuspenseQuery>;
 export type FindSubcategoriesByCategoryQueryResult = Apollo.QueryResult<FindSubcategoriesByCategoryQuery, FindSubcategoriesByCategoryQueryVariables>;
+export const FindTopicBySlugDocument = gql`
+    query findTopicBySlug($slug: String!) {
+  findTopicBySlug(slug: $slug) {
+    id
+    title
+    attachedProject {
+      id
+      title
+      images
+      description
+      genres
+      isGathering
+    }
+    author {
+      id
+      uid
+      avatar
+      username
+      status
+      isLookingTeam
+      isGatheringTeam
+      iconSpecialization
+      specialization {
+        title
+      }
+      socialLinks {
+        title
+        url
+      }
+      candidateCard {
+        direction
+      }
+    }
+    contentBlocks
+    viewCount
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useFindTopicBySlugQuery__
+ *
+ * To run a query within a React component, call `useFindTopicBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindTopicBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindTopicBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindTopicBySlugQuery(baseOptions: Apollo.QueryHookOptions<FindTopicBySlugQuery, FindTopicBySlugQueryVariables> & ({ variables: FindTopicBySlugQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindTopicBySlugQuery, FindTopicBySlugQueryVariables>(FindTopicBySlugDocument, options);
+      }
+export function useFindTopicBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindTopicBySlugQuery, FindTopicBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindTopicBySlugQuery, FindTopicBySlugQueryVariables>(FindTopicBySlugDocument, options);
+        }
+export function useFindTopicBySlugSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindTopicBySlugQuery, FindTopicBySlugQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindTopicBySlugQuery, FindTopicBySlugQueryVariables>(FindTopicBySlugDocument, options);
+        }
+export type FindTopicBySlugQueryHookResult = ReturnType<typeof useFindTopicBySlugQuery>;
+export type FindTopicBySlugLazyQueryHookResult = ReturnType<typeof useFindTopicBySlugLazyQuery>;
+export type FindTopicBySlugSuspenseQueryHookResult = ReturnType<typeof useFindTopicBySlugSuspenseQuery>;
+export type FindTopicBySlugQueryResult = Apollo.QueryResult<FindTopicBySlugQuery, FindTopicBySlugQueryVariables>;
 export const FindAllSpecializationsDocument = gql`
     query FindAllSpecializations {
   findAllSpecializations {
