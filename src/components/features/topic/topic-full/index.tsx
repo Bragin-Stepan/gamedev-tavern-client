@@ -8,6 +8,7 @@ import { Typography } from '@/components/ui/common/typography'
 import { Author } from '@/components/ui/shared/author'
 import { BookmarkCount } from '@/components/ui/shared/bookmark-count'
 import { CommentsCount } from '@/components/ui/shared/comments-count'
+import { PostContentList } from '@/components/ui/shared/post-content-list'
 import { ViewCount } from '@/components/ui/shared/view-count'
 import { WBlock } from '@/components/ui/shared/w-block'
 
@@ -28,17 +29,18 @@ export const TopicFull = ({ topic }: Props) => {
 		return null
 	}
 
-	console.log(topic.contentBlocks)
-
 	return (
 		<WBlock>
 			<div className='flex flex-row items-center justify-between'>
-				<Author />
+				<Author author={topic.author} />
 				<ThreeDotsButton />
 			</div>
 
 			<Typography variant='h2'>{topic.title}</Typography>
-			<Typography variant='body1'>
+
+			<PostContentList items={topic.contentBlocks} />
+
+			{/* <Typography variant='body1'>
 				Если вы не являетесь фанатом хотя бы одной из них, то дальше можно не
 				читать.
 			</Typography>
@@ -68,7 +70,7 @@ export const TopicFull = ({ topic }: Props) => {
 				хотелки» — вещи разные. Ну и что за полгода слепить игру даже за
 				сорокачасовую рабочую неделю нереально. Если чего-то из этого нет —
 				дальше можно не читать.
-			</Typography>
+			</Typography> */}
 
 			{topic.attachedProject && (
 				<WBlock className='bg-custom-gray-light'>
@@ -81,9 +83,9 @@ export const TopicFull = ({ topic }: Props) => {
 					{formatDateTime(topic.createdAt)}
 				</Typography>
 				<div className='flex items-center gap-4'>
-					<CommentsCount />
+					<CommentsCount count={topic.commentsCount} />
 					<BookmarkCount />
-					<ViewCount />
+					<ViewCount count={topic.viewCount} />
 				</div>
 			</div>
 			<CommentForm />

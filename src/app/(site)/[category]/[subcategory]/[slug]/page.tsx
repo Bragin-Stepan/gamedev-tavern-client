@@ -46,10 +46,14 @@ export default async function TopicSlugPage(props: {
 
 	const { topic } = await findTopic(params)
 
+	if (!topic) {
+		return notFound()
+	}
+
 	return (
 		<WBlock isBackground={false}>
 			<TopicFull topic={topic} />
-			<CommentList />
+			{<CommentList contentId={topic.id} />}
 		</WBlock>
 	)
 }

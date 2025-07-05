@@ -26,10 +26,30 @@ import { IconName } from './decorative-icon-specializations/icon.type'
 
 interface AuthorProps {
 	// author?: FindAllTopicsQuery['findAllTopics'][0]['author']
-	author?: FindProfileByUidQuery['findProfileByUid']
+	// author?: FindProfileByUidQuery['findProfileByUid']
+	id: string
+	uid: string
+	avatar: string
+	username: string
+	status: string
+	isLookingTeam: boolean
+	isGatheringTeam: boolean
+	iconSpecialization: IconName
+	specialization: {
+		title: string
+	}
+	socialLinks: {
+		title: string
+		url: string
+	}[]
+	candidateCard: {
+		direction: string
+	}
+	createdAt: string
+	updatedAt: string
 }
 
-export const Author = ({ author }: AuthorProps) => {
+export const Author = ({ author }: { author: AuthorProps }) => {
 	// if (!author) return null
 	const { user } = useCurrent()
 

@@ -1,11 +1,15 @@
-// import { DropdownLinkButton } from '@/components/shared';
-import { Divider } from '@/components/ui/common/divider'
 import { DropdownLinkButton } from '@/components/ui/shared/dropdown-link-button'
 import { WBlock } from '@/components/ui/shared/w-block'
 
 import { Comment } from '../comment/comment'
 
-export const CommentList = () => {
+interface Props {
+	contendId: string
+}
+
+export const CommentList = ({ contendId }: Props) => {
+	// const {data, loading} = useFindCommentsQuery({variables: {contendId}})
+
 	return (
 		<WBlock isBackground={false} className='items-start'>
 			<DropdownLinkButton

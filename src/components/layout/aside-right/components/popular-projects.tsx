@@ -26,8 +26,8 @@ export const PopularProjects = () => {
 							alt=''
 							fill
 						/>
-						<div className='bg-custom-access absolute bottom-1.5 left-1.5 z-2 rounded-md p-1'>
-							<FaHandsHelping className='text-white' />
+						<div className='bg-custom-access absolute top-1.5 left-1.5 z-2 rounded-md p-1'>
+							<FaHandsHelping className='text-white' size={14} />
 						</div>
 					</div>
 					<div className='-my-0.5 flex h-full w-3/5 flex-col justify-between group-hover:opacity-80'>

@@ -87,7 +87,12 @@ export const SubcategoriesGroupItem = ({ subcategories }: Props) => {
 								<Link
 									href={`/${subcategory.category.slug}?sub=${subcategory.slug}`}
 								>
+									<span className='mr-2 opacity-25'>
+										{subcategory.category.title}
+									</span>
 									{subcategory.title}
+
+									{/* {`${subcategory.category.title} / ${subcategory.title}`} */}
 								</Link>
 							</Typography>
 							<WBlock>

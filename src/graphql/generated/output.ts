@@ -624,6 +624,7 @@ export type TopicModel = {
   authorId: Scalars['String']['output'];
   bookmarks: Array<BookmarkModel>;
   comments: Array<CommentModel>;
+  commentsCount?: Maybe<Scalars['Float']['output']>;
   contentBlocks: Scalars['JSON']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
@@ -830,7 +831,7 @@ export type FindPopularSubcategoriesQueryVariables = Exact<{
 }>;
 
 
-export type FindPopularSubcategoriesQuery = { __typename?: 'Query', findPopularSubcategories: Array<{ __typename?: 'SubcategoryModel', id: string, title: string, slug: string, category: { __typename?: 'CategoryModel', slug: string }, topics: Array<{ __typename?: 'TopicModel', id: string, title: string, slug: string, contentBlocks: any, viewCount: number, createdAt: any, isBookmarked: boolean, subcategory: { __typename?: 'SubcategoryModel', title: string, slug: string, category: { __typename?: 'CategoryModel', title: string, slug: string } }, author: { __typename?: 'UserModel', id: string, uid: number, avatar?: string | null, username?: string | null, status?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, iconSpecialization?: string | null, specialization?: { __typename?: 'SpecializationModel', title: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', title: string, url: string }>, candidateCard?: { __typename?: 'CandidateCardModel', direction: string } | null } } | null> }> };
+export type FindPopularSubcategoriesQuery = { __typename?: 'Query', findPopularSubcategories: Array<{ __typename?: 'SubcategoryModel', id: string, title: string, slug: string, category: { __typename?: 'CategoryModel', title: string, slug: string }, topics: Array<{ __typename?: 'TopicModel', id: string, title: string, slug: string, contentBlocks: any, viewCount: number, createdAt: any, isBookmarked: boolean, subcategory: { __typename?: 'SubcategoryModel', title: string, slug: string, category: { __typename?: 'CategoryModel', title: string, slug: string } }, author: { __typename?: 'UserModel', id: string, uid: number, avatar?: string | null, username?: string | null, status?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, iconSpecialization?: string | null, specialization?: { __typename?: 'SpecializationModel', title: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', title: string, url: string }>, candidateCard?: { __typename?: 'CandidateCardModel', direction: string } | null } } | null> }> };
 
 export type FindSubcategoriesByCategoryQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -844,7 +845,7 @@ export type FindTopicBySlugQueryVariables = Exact<{
 }>;
 
 
-export type FindTopicBySlugQuery = { __typename?: 'Query', findTopicBySlug?: { __typename?: 'TopicModel', id: string, title: string, contentBlocks: any, viewCount: number, createdAt: any, updatedAt: any, attachedProject?: { __typename?: 'ProjectModel', id: string, title: string, images: Array<string>, description: string, genres: Array<string>, isGathering: boolean } | null, author: { __typename?: 'UserModel', id: string, uid: number, avatar?: string | null, username?: string | null, status?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, iconSpecialization?: string | null, specialization?: { __typename?: 'SpecializationModel', title: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', title: string, url: string }>, candidateCard?: { __typename?: 'CandidateCardModel', direction: string } | null } } | null };
+export type FindTopicBySlugQuery = { __typename?: 'Query', findTopicBySlug?: { __typename?: 'TopicModel', id: string, title: string, commentsCount?: number | null, contentBlocks: any, viewCount: number, createdAt: any, updatedAt: any, attachedProject?: { __typename?: 'ProjectModel', id: string, title: string, images: Array<string>, description: string, genres: Array<string>, isGathering: boolean } | null, author: { __typename?: 'UserModel', id: string, uid: number, avatar?: string | null, username?: string | null, status?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, iconSpecialization?: string | null, specialization?: { __typename?: 'SpecializationModel', title: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', title: string, url: string }>, candidateCard?: { __typename?: 'CandidateCardModel', direction: string } | null } } | null };
 
 export type FindAllSpecializationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1501,6 +1502,7 @@ export const FindPopularSubcategoriesDocument = gql`
     title
     slug
     category {
+      title
       slug
     }
     topics {
@@ -1646,7 +1648,7 @@ export type FindSubcategoriesByCategoryLazyQueryHookResult = ReturnType<typeof u
 export type FindSubcategoriesByCategorySuspenseQueryHookResult = ReturnType<typeof useFindSubcategoriesByCategorySuspenseQuery>;
 export type FindSubcategoriesByCategoryQueryResult = Apollo.QueryResult<FindSubcategoriesByCategoryQuery, FindSubcategoriesByCategoryQueryVariables>;
 export const FindTopicBySlugDocument = gql`
-    query findTopicBySlug($slug: String!) {
+    query FindTopicBySlug($slug: String!) {
   findTopicBySlug(slug: $slug) {
     id
     title
@@ -1678,6 +1680,7 @@ export const FindTopicBySlugDocument = gql`
         direction
       }
     }
+    commentsCount
     contentBlocks
     viewCount
     createdAt
