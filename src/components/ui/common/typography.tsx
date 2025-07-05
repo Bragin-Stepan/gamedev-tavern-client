@@ -50,11 +50,11 @@ export const Typography = ({
 	}
 
 	const styles: TVariantsText = {
-		h1: 'text-[20px] lg:text-2xl font-extrabold leading-tight text-custom-black leading-tight',
-		h2: 'text-[18px] lg:text-[20px] font-semibold text-custom-black leading-tight tracking-tight',
-		h3: 'text-[16px] lg:text-[18px] font-semibold text-custom-black leading-normal tracking-normal',
+		h1: 'text-[20px] lg:text-2xl font-extrabold leading-tight text-custom-black leading-tight tracking-wide',
+		h2: 'text-[18px] lg:text-[20px] font-semibold  text-custom-black leading-tight tracking-tight tracking-wide',
+		h3: 'text-[16px] lg:text-[18px] font-semibold text-custom-black leading-normal tracking-normal tracking-wide',
 		body1:
-			'text-sm lg:text-base text-custom-black leading-relaxed tracking-normal font-normal dark:opacity-80',
+			'text-sm lg:text-base text-custom-black leading-relaxed tracking-normal font-normal dark:opacity-80 tracking-wide',
 		body2:
 			'text-[13px] lg:text-sm text-custom-gray leading-normal tracking-normal font-normal',
 		caption:

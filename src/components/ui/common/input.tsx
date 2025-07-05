@@ -5,7 +5,7 @@ import { cn } from '@/utils/tailwind-merge'
 // Конфигурация базовых стилей для Input
 const inputStyles = {
 	base: 'file:text-custom-white placeholder:text-custom-gray bg-custom-gray/10 selection:bg-primary selection:text-primary-foreground dark:bg-input/30',
-	layout: 'flex w-full min-w-0 rounded-lg px-5 py-3 text-md',
+	layout: 'flex w-full min-w-0 rounded-xl px-5 py-3 text-md',
 	transitions: 'transition-[color,box-shadow] outline-none',
 	states: {
 		disabled:

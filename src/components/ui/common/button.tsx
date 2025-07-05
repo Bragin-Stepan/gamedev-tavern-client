@@ -5,7 +5,7 @@ import * as React from 'react'
 import { cn } from '@/utils/tailwind-merge'
 
 const buttonVariants = cva(
-	'cursor-pointer inline-flex duration-200 items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition',
+	'cursor-pointer inline-flex duration-200 items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition',
 	{
 		variants: {
 			variant: {
@@ -19,9 +19,9 @@ const buttonVariants = cva(
 				link: 'text-sm lg:text-base text-custom-brand hover:opacity-70'
 			},
 			size: {
-				default: 'h-9 px-4 py-2 has-[>svg]:px-3',
+				default: 'px-4.5 py-2.5 has-[>svg]:px-4',
 				sm: 'h-8 rounded-lg gap-1.5 px-3 has-[>svg]:px-2.5',
-				lg: 'text-md h-12 rounded-lg px-6 has-[>svg]:px-4',
+				lg: 'text-md h-12 rounded-xl px-6 has-[>svg]:px-4',
 				icon: 'size-9 hover:animate-pulse',
 				text: 'py-0.5 lg:py-0'
 			}

@@ -4,10 +4,36 @@ import { Avatar } from '@/components/ui/common/avatar'
 import { Badge } from '@/components/ui/common/badge'
 import { Button } from '@/components/ui/common/button'
 import { Typography } from '@/components/ui/common/typography'
+import { GatheringTeamBadge } from '@/components/ui/shared/badges/gathering-team-badge'
+import { LookingTeamBadge } from '@/components/ui/shared/badges/looking-team-badge'
+import { SpecializationBadge } from '@/components/ui/shared/badges/specialization-badge'
 import { DecorativeIconSpecialization } from '@/components/ui/shared/decorative-icon-specializations'
+import { IconName } from '@/components/ui/shared/decorative-icon-specializations/icon.type'
 import { WBlock } from '@/components/ui/shared/w-block'
 
-export const UserProfileHeader = () => {
+import { FindProfileByUidQuery } from '@/graphql/generated/output'
+
+interface Props {
+	uid: number
+	username: string | null | undefined
+	avatar: string | null | undefined
+	status: string | null | undefined
+	specialization: FindProfileByUidQuery['findProfileByUid']['specialization']
+	iconSpecialization: string | null | undefined
+	isLookingTeam: boolean
+	isGatheringTeam: boolean
+}
+
+export const UserProfileHeader = ({
+	uid,
+	username,
+	avatar,
+	status,
+	iconSpecialization,
+	specialization,
+	isLookingTeam,
+	isGatheringTeam
+}: Props) => {
 	return (
 		<WBlock>
 			<div className='flex flex-row items-center gap-3'>
@@ -15,24 +41,24 @@ export const UserProfileHeader = () => {
 
 				<div className='flex flex-col gap-0 lg:gap-1'>
 					<div className='flex flex-row gap-1 lg:gap-2'>
-						<Typography variant='h2'>EvilHomie</Typography>
-						<Badge className='bg-custom-black text-custom-white'>UID: 1</Badge>
+						<Typography variant='h2'>{username ?? uid}</Typography>
+						<Typography variant='body1' className='text-custom-brand'>
+							UID: {uid}
+						</Typography>
 					</div>
 					<div className='flex flex-row gap-1 lg:gap-2'>
-						<Badge className='bg-custom-brand/10 text-custom-brand'>
-							художник
-						</Badge>
-						<Badge className='bg-custom-error/10 text-custom-error'>
-							собираю команду
-						</Badge>
+						<SpecializationBadge
+							title={specialization?.title}
+							careerPath={specialization?.careerPath}
+						/>
+
+						{isGatheringTeam && !isLookingTeam && <GatheringTeamBadge />}
+						{!isGatheringTeam && isLookingTeam && <LookingTeamBadge />}
 					</div>
 				</div>
 			</div>
 
-			<Typography variant='body1'>
-				Люблю программировать и путешествовать. В свободное время занимаюсь
-				спортом и чтением
-			</Typography>
+			{status && <Typography variant='body1'>{status}</Typography>}
 
 			<div className='flex gap-5'>
 				<Link href='#'>
@@ -54,7 +80,7 @@ export const UserProfileHeader = () => {
 			</div>
 
 			<DecorativeIconSpecialization
-				value='diceFire'
+				value={iconSpecialization as IconName}
 				className='text-custom-gray/10 dark:text-custom-gray/7 absolute top-3 right-3 h-14 w-14 -rotate-10 lg:h-22 lg:w-22'
 			/>
 		</WBlock>

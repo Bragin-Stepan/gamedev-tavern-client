@@ -15,11 +15,12 @@ export const CategoriesListGroup = () => {
 	if (!data)
 		return (
 			<WBlock className='animate-pulse'>
-				<div className='bg-custom-gray/10 h-6 w-1/4 rounded-full' />
-				<div className='bg-custom-gray/10 h-6 w-1/5 rounded-full' />
-				<div className='bg-custom-gray/10 h-6 w-1/4 rounded-full' />
-				<div className='bg-custom-gray/10 h-6 w-1/6 rounded-full' />
-				<div className='bg-custom-gray/10 h-6 w-1/5 rounded-full' />
+				<div className='bg-custom-gray/10 my-1.5 h-6 w-1/4 rounded-full' />
+				<div className='bg-custom-gray/10 my-1.5 h-6 w-1/5 rounded-full' />
+				<div className='bg-custom-gray/10 my-1.5 h-6 w-1/4 rounded-full' />
+				<div className='bg-custom-gray/10 my-1.5 h-6 w-1/6 rounded-full' />
+				<div className='bg-custom-gray/10 my-1.5 h-6 w-1/6 rounded-full' />
+				<div className='bg-custom-gray/10 my-1.5 h-6 w-1/5 rounded-full' />
 			</WBlock>
 		)
 

@@ -25,7 +25,7 @@ export const CreateHeaderButton = () => {
 			<DropdownMenuTrigger asChild>
 				{/* <Button className="w-[36px] rounded-full" variant={'outline'}> */}
 				<Button className='bg-white/10 text-white'>
-					<Plus className='text-white' size={20} />
+					<Plus className='text-white' size={16} />
 					Создать
 				</Button>
 			</DropdownMenuTrigger>

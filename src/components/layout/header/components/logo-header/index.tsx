@@ -15,7 +15,7 @@ export const LogoHeader = ({ variant = 'sm', className }: Props) => {
 			<div className='mr-4 flex flex-col justify-between'>
 				<Typography
 					variant='h2'
-					className='text-custom-brand h-5 text-xl font-bold uppercase'
+					className='text-custom-brand h-5 !text-[21px] font-bold uppercase'
 				>
 					GAMEDEV
 				</Typography>
@@ -28,15 +28,12 @@ export const LogoHeader = ({ variant = 'sm', className }: Props) => {
 			</div>
 		</Link>
 	) : (
-		<Link
-			href={'/'}
-			className={cn('flex-grow items-center gap-4 pl-34', className)}
-		>
+		<Link href={'/'} className={cn('flex-grow items-center gap-4', className)}>
 			{/* <img src={imgLogo.src} alt='logo' className='h-10 w-10' /> */}
 			<div className='mr-5 flex flex-col justify-between'>
 				<Typography
 					variant='h3'
-					className='text-custom-brand h-6 text-xl font-bold uppercase'
+					className='text-custom-brand text-md h-5 font-bold uppercase'
 				>
 					GAMEDEV
 				</Typography>

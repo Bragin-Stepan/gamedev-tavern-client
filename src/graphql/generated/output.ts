@@ -427,6 +427,13 @@ export type PaginationInput = {
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export enum PathCareerType {
+  Art = 'ART',
+  Developer = 'DEVELOPER',
+  Manager = 'MANAGER',
+  Other = 'OTHER'
+}
+
 export type ProjectModel = {
   __typename?: 'ProjectModel';
   author: UserModel;
@@ -510,7 +517,7 @@ export type QueryFindPopularSubcategoriesArgs = {
 
 
 export type QueryFindProfileByUidArgs = {
-  uid: Scalars['Float']['input'];
+  uid: Scalars['Int']['input'];
 };
 
 
@@ -549,6 +556,12 @@ export type ResetPasswordInput = {
   email: Scalars['String']['input'];
 };
 
+export enum RoleType {
+  Admin = 'ADMIN',
+  Moderator = 'MODERATOR',
+  User = 'USER'
+}
+
 export type SessionMetadataModel = {
   __typename?: 'SessionMetadataModel';
   device: DeviceModel;
@@ -570,7 +583,7 @@ export type SpecializationInput = {
 
 export type SpecializationModel = {
   __typename?: 'SpecializationModel';
-  careerPath: Scalars['String']['output'];
+  careerPath: PathCareerType;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   title: Scalars['String']['output'];
@@ -672,7 +685,7 @@ export type UserModel = {
   isVerified: Scalars['Boolean']['output'];
   password: Scalars['String']['output'];
   projects: Array<ProjectModel>;
-  role: Scalars['String']['output'];
+  role: RoleType;
   socialLinks: Array<LinkModel>;
   specialization?: Maybe<SpecializationModel>;
   specializationId: Scalars['String']['output'];
@@ -829,7 +842,7 @@ export type FindSubcategoriesByCategoryQuery = { __typename?: 'Query', findSubca
 export type FindAllSpecializationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllSpecializationsQuery = { __typename?: 'Query', findAllSpecializations: Array<{ __typename?: 'SpecializationModel', id: string, title: string, careerPath: string, createdAt: any, updatedAt: any }> };
+export type FindAllSpecializationsQuery = { __typename?: 'Query', findAllSpecializations: Array<{ __typename?: 'SpecializationModel', id: string, title: string, careerPath: PathCareerType, createdAt: any, updatedAt: any }> };
 
 export type FindCurrentSessionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -837,11 +850,11 @@ export type FindCurrentSessionQueryVariables = Exact<{ [key: string]: never; }>;
 export type FindCurrentSessionQuery = { __typename?: 'Query', findCurrentSession: { __typename?: 'SessionModel', id: string, createdAt: string, metadata: { __typename?: 'SessionMetadataModel', ip: string, location: { __typename?: 'LocationModel', country: string, city: string, latidute: number, longitude: number }, device: { __typename?: 'DeviceModel', browser: string, os: string } } } };
 
 export type FindProfileByUidQueryVariables = Exact<{
-  uid: Scalars['Float']['input'];
+  uid: Scalars['Int']['input'];
 }>;
 
 
-export type FindProfileByUidQuery = { __typename?: 'Query', findProfileByUid: { __typename?: 'UserModel', id: string, uid: number, username?: string | null, avatar?: string | null, status?: string | null, iconSpecialization?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, createdAt: any, updatedAt: any, candidateCard?: { __typename?: 'CandidateCardModel', id: string, direction: string, description: string } | null, specialization?: { __typename?: 'SpecializationModel', id: string, title: string, careerPath: string } | null, socialLinks: Array<{ __typename?: 'LinkModel', id: string, title: string, url: string }> } };
+export type FindProfileByUidQuery = { __typename?: 'Query', findProfileByUid: { __typename?: 'UserModel', id: string, uid: number, username?: string | null, avatar?: string | null, status?: string | null, iconSpecialization?: string | null, isLookingTeam: boolean, isGatheringTeam: boolean, createdAt: any, updatedAt: any, specialization?: { __typename?: 'SpecializationModel', id: string, title: string, careerPath: PathCareerType } | null, socialLinks: Array<{ __typename?: 'LinkModel', id: string, title: string, url: string }> } };
 
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1722,7 +1735,7 @@ export type FindCurrentSessionLazyQueryHookResult = ReturnType<typeof useFindCur
 export type FindCurrentSessionSuspenseQueryHookResult = ReturnType<typeof useFindCurrentSessionSuspenseQuery>;
 export type FindCurrentSessionQueryResult = Apollo.QueryResult<FindCurrentSessionQuery, FindCurrentSessionQueryVariables>;
 export const FindProfileByUidDocument = gql`
-    query FindProfileByUid($uid: Float!) {
+    query FindProfileByUid($uid: Int!) {
   findProfileByUid(uid: $uid) {
     id
     uid
@@ -1732,11 +1745,6 @@ export const FindProfileByUidDocument = gql`
     iconSpecialization
     isLookingTeam
     isGatheringTeam
-    candidateCard {
-      id
-      direction
-      description
-    }
     specialization {
       id
       title

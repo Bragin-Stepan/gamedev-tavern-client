@@ -164,7 +164,7 @@ export const TopicEditForm = () => {
 									defaultValue={field.value}
 									value={field.value}
 								>
-									<SelectTrigger className='w-full'>
+									<SelectTrigger className='bg-custom-white w-full'>
 										<SelectValue placeholder='Добавить проект' />
 									</SelectTrigger>
 									<SelectContent>

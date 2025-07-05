@@ -30,7 +30,7 @@ interface AuthorProps {
 }
 
 export const Author = ({ author }: AuthorProps) => {
-	if (!author) return null
+	// if (!author) return null
 	const { user } = useCurrent()
 
 	return (
@@ -38,21 +38,22 @@ export const Author = ({ author }: AuthorProps) => {
 			<HoverCardTrigger asChild>
 				<Link
 					className='flex w-fit items-center gap-2 lg:gap-3'
-					href='/profile/1'
+					href={author?.uid ? `/profile/${author.uid}` : '#'}
 				>
 					<Avatar className='h-13 w-13' />
 					<div className='flex flex-col gap-1'>
 						<Typography variant='body1' className='dark:opacity-100'>
-							{author.username}
+							{author?.username ?? 'Аккаунт недоступен'}
 						</Typography>
-						<div className='flex flex-row gap-2'>
-							<SpecializationBadge title={author.specialization?.title} />
 
-							{!author.isLookingTeam && author.isGatheringTeam && (
+						<div className='flex flex-row gap-2'>
+							<SpecializationBadge title={author?.specialization?.title} />
+
+							{!author?.isLookingTeam && author?.isGatheringTeam && (
 								<GatheringTeamBadge />
 							)}
 
-							{!author.isGatheringTeam && author.isLookingTeam && (
+							{!author?.isGatheringTeam && author?.isLookingTeam && (
 								<LookingTeamBadge />
 							)}
 						</div>
@@ -62,14 +63,13 @@ export const Author = ({ author }: AuthorProps) => {
 			<HoverCardContent
 				className='flex w-fit max-w-90 flex-col gap-1 lg:max-w-100 lg:min-w-90 lg:gap-2'
 				align='start'
-				// side='right'
 				sideOffset={-16}
 			>
 				<Link
 					className='flex w-fit items-center gap-2 lg:gap-3'
 					href='/profile/1'
 				>
-					{author.specialization && (
+					{author?.specialization && (
 						<DecorativeIconSpecialization
 							value={author.specialization.title as IconName}
 							className='text-custom-gray/10 dark:text-custom-gray/7 absolute top-2 right-3 h-14 w-14 -rotate-10 lg:h-16 lg:w-16'
@@ -79,40 +79,40 @@ export const Author = ({ author }: AuthorProps) => {
 					<div className='flex flex-col gap-1'>
 						<div className='flex flex-row items-center gap-1'>
 							<Typography variant='body1' className='dark:opacity-100'>
-								{author.username}
+								{author?.username ?? 'Аккаунт недоступен'}
 							</Typography>
 							{/* <Badge className='bg-custom-black text-custom-white'>
 								UID: {author.uid}
 							</Badge> */}
 							<Typography variant='body2' className='text-custom-brand pr-4'>
-								UID: {author.uid}
+								UID: {author?.uid ?? '777'}
 							</Typography>
 						</div>
 
 						<div className='flex flex-row gap-2'>
-							<SpecializationBadge title={author.specialization?.title} />
+							<SpecializationBadge title={author?.specialization?.title} />
 
-							{!author.isLookingTeam && author.isGatheringTeam && (
+							{!author?.isLookingTeam && author?.isGatheringTeam && (
 								<GatheringTeamBadge />
 							)}
 
-							{!author.isGatheringTeam && author.isLookingTeam && (
+							{!author?.isGatheringTeam && author?.isLookingTeam && (
 								<LookingTeamBadge />
 							)}
 						</div>
 					</div>
 				</Link>
-				{author.candidateCard && (
+				{author?.candidateCard && (
 					<Typography variant='body1'>
 						{author.candidateCard.direction}
 					</Typography>
 				)}
 				<Typography variant='body2' className='-mt-1'>
-					{author.status}
+					{author?.status}
 				</Typography>
 
 				<div className='my-1 -mt-1 flex flex-row gap-2 lg:gap-3'>
-					{author.socialLinks?.length > 0 &&
+					{author?.socialLinks?.length > 0 &&
 						author.socialLinks.map(link => (
 							<Button key={link.title} variant={'link'} size={'text'}>
 								{link.title}

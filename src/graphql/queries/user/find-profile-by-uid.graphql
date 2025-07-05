@@ -1,4 +1,4 @@
-query FindProfileByUid($uid: Float!) {
+query FindProfileByUid($uid: Int!) {
   findProfileByUid(uid: $uid) {
     id
     uid
@@ -8,11 +8,6 @@ query FindProfileByUid($uid: Float!) {
     iconSpecialization
     isLookingTeam
     isGatheringTeam
-    candidateCard {
-      id
-      direction
-      description
-    }
     specialization {
       id
       title      

@@ -44,7 +44,7 @@ export const ProfileMenu = () => {
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align='end'>
-					<Link href='/profile/{id}'>
+					<Link href={`/profile/${user?.uid}`}>
 						<DropdownMenuItem>
 							<FaUser />
 							{user?.username || 'Профиль'}

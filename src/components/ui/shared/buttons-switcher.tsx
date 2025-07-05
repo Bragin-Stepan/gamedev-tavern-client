@@ -28,14 +28,14 @@ export const ButtonsSwitcher: React.FC<ButtonsSwitcherProps> = ({
 	return (
 		<div
 			className={cn(
-				'scrollbar-hide flex flex-row flex-wrap gap-2 overflow-x-auto',
+				'scrollbar-hide flex flex-row flex-wrap gap-2 overflow-x-auto lg:gap-4',
 				className
 			)}
 		>
 			{items.map(tab => (
 				<Button
 					key={tab.value}
-					size='lg'
+					// size='lg'
 					variant={activeTab === tab.value ? 'default' : 'ghost'}
 					onClick={() => onChange(tab.value)}
 				>

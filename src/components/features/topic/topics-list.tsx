@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { Button } from '@/components/ui/common/button'
 import { Typography } from '@/components/ui/common/typography'
@@ -21,6 +22,7 @@ interface TopicsListProps {
 }
 
 export const TopicsList = ({ categoryId, subcategoryId }: TopicsListProps) => {
+	const [hasMore, setHasMore] = useState(true)
 	const [topicsList, setTopicsList] = useState<
 		FindAllTopicsQuery['findAllTopics']
 	>([])
@@ -47,17 +49,25 @@ export const TopicsList = ({ categoryId, subcategoryId }: TopicsListProps) => {
 		})
 	}, [categoryId, subcategoryId])
 
-	const loadMore = () => {
-		fetchMore({
-			variables: {
-				pagination: {
-					take: 12,
-					skip: topicsList.length
+	const fetchMoreTopics = () => {
+		if (!hasMore) return
+
+		setTimeout(async () => {
+			const { data: newData } = await fetchMore({
+				variables: {
+					pagination: {
+						take: 12,
+						skip: topicsList.length
+					}
 				}
+			})
+
+			if (newData.findAllTopics.length) {
+				setTopicsList(prev => [...prev, ...newData.findAllTopics])
+			} else {
+				setHasMore(false)
 			}
-		}).then(({ data }) => {
-			setTopicsList(prev => [...prev, ...(data?.findAllTopics || [])])
-		})
+		}, 400)
 	}
 
 	if (loading && !topicsList.length) return <LoaderBlock />
@@ -69,7 +79,7 @@ export const TopicsList = ({ categoryId, subcategoryId }: TopicsListProps) => {
 					<Typography variant='h1' className='text-custom-gray'>
 						{subcategoryId ? 'Нет тем' : 'Выберите категорию или подкатегорию'}
 					</Typography>
-					<Link href='/topic/create'>
+					<Link href='/topic/edit'>
 						<Button>Создать</Button>
 					</Link>
 				</div>
@@ -78,14 +88,18 @@ export const TopicsList = ({ categoryId, subcategoryId }: TopicsListProps) => {
 	}
 
 	return (
-		<>
+		<InfiniteScroll
+			dataLength={topicsList.length}
+			next={fetchMoreTopics}
+			hasMore={hasMore}
+			className='flex flex-col gap-2 lg:gap-3'
+			loader={<LoaderBlock />}
+		>
 			{topicsList.map(topic => (
 				<WBlock key={topic.id}>
 					<TopicPreview topic={topic} />
 				</WBlock>
 			))}
-
-			<LoaderBlock />
-		</>
+		</InfiniteScroll>
 	)
 }

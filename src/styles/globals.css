@@ -4,9 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 * {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-roboto), sans-serif;
 }
 
 h1 {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-roboto), sans-serif;
 }

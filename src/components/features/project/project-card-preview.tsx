@@ -19,7 +19,7 @@ export const ProjectCardPreview = ({
 	return (
 		<Link href='/project/1' className='flex flex-col gap-4 md:flex-row'>
 			<Badge className='bg-custom-access absolute top-7 left-7 z-2 text-white'>
-				нужны люди
+				поиск людей
 			</Badge>
 			<div className='bg-custom-brand aspect-video w-full flex-shrink-0 rounded-lg md:w-1/3 md:min-w-[240px]'></div>
 

@@ -15,11 +15,11 @@ import { pages } from '../../config/pages'
 
 export const HamburgerMenu = () => {
 	return (
-		<div className={'visable flex-grow md:hidden'}>
+		<div className={'visable md:hidden'}>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant={'link'} size={'icon'}>
-						<RxHamburgerMenu size={24} className='text-custom-black' />
+						<RxHamburgerMenu size={24} className='text-white' />
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align='start'>

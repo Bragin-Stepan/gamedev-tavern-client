@@ -39,7 +39,7 @@ export const ProjectCardFull = () => {
 				}}
 			>
 				<Badge className='bg-custom-access absolute top-4 left-4 z-2 text-white'>
-					нужны люди
+					поиск людей
 				</Badge>
 				<CarouselNext className='bg-custom-brand ring-custom-white top-7/8 -translate-y-1/3 text-white' />
 				<CarouselPrevious className='bg-custom-brand ring-custom-white top-7/8 -translate-y-1/3 text-white' />

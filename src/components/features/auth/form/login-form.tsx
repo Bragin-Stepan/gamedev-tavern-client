@@ -41,7 +41,7 @@ export const LoginForm = () => {
 		onCompleted: () => {
 			auth()
 			router.push('/')
-			toast.success('Аккаунт успешно авторизован')
+			toast.success('Успешная авторизация')
 		},
 		onError: e => {
 			setErrorMessage(e.message)
